@@ -55,9 +55,16 @@ public class Authorizer {
                 + "&response_type=" + RESPONSE_TYPE);
         System.out.println("waiting for code...");
         requestAccessCode();
+        httpResponse = requestAccessToken();
 
         try {
             if (httpResponse.statusCode() == 200) {
+                JsonObject jsonObject = JsonParser.parseString(httpResponse.body()).getAsJsonObject();
+                userAccessToken = jsonObject.get("access_token").getAsString();
+                advisorEngine.setUserAccessToken(userAccessToken);
+                System.out.println("response: ");
+                System.out.println(userAccessToken);
+
                 return true;
             }
         } catch (NullPointerException e) {
@@ -67,7 +74,7 @@ public class Authorizer {
         return false;
     }
 
-    public void requestAccessCode() throws IOException, InterruptedException {
+    public void requestAccessCode() {
         try {
             httpServer = HttpServer.create();
             httpServer.bind(new InetSocketAddress(8080), 0);
@@ -76,43 +83,30 @@ public class Authorizer {
 
             httpServer.createContext("/", exchange -> {
                 String query = exchange.getRequestURI().getQuery();
-                String responseBody;
-
-                System.out.println("test print query: " + query);
+                String response;
 
                 if (query != null && query.contains("code")) {
                     userAuthCode = query.substring(5);
-                    responseBody = "Got the code. Return back to your program.";
-                    exchange.sendResponseHeaders(200, query.length());
-                    exchange.getResponseBody().write(responseBody.getBytes());
-                    exchange.getResponseBody().close();
-
                     System.out.println("code received");
                     System.out.println(userAuthCode);
                     System.out.println("making http request for access_token...");
-
-                    try {
-                        httpResponse = requestAccessToken();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    response = "Got the code. Return back to your program.";
 
                 } else {
-                    responseBody = "Authorization code not found. Try again.";
-                    exchange.sendResponseHeaders(404, query.length());
-                    exchange.getResponseBody().write(responseBody.getBytes());
-                    exchange.getResponseBody().close();
+                    response = "Authorization code not found. Try again.";
                 }
 
-                while (userAuthCode == null) {
-                    try {
-                        Thread.sleep(10000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
+                exchange.sendResponseHeaders(200, query.length());
+                exchange.getResponseBody().write(response.getBytes());
+                exchange.getResponseBody().close();
             });
-        } catch (IOException e) {
+
+            if (userAuthCode == null) {
+                Thread.sleep(500);
+            }
+
+            httpServer.stop(10);
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             System.out.println("server error");
         }
@@ -123,20 +117,12 @@ public class Authorizer {
                 .header("Content-Type", "application/x-www-form-urlencoded")
                 .uri(URI.create(authServerPath + "/api/token"))
                 .POST(HttpRequest.BodyPublishers.ofString(
-                        "&client_id=" + CLIENT_ID
-                                + "&client_secret=" + CLIENT_SECRET
-                                + "&grant_type=" + GRANT_TYPE
+                        "&grant_type=" + GRANT_TYPE
                                 + "&code=" + userAuthCode
+                                + "&client_id=" + CLIENT_ID
+                                + "&client_secret=" + CLIENT_SECRET
                                 + "&redirect_uri=" + REDIRECT_URI))
                 .build();
-
-
-
-        JsonObject jsonObject = JsonParser.parseString(httpResponse.body()).getAsJsonObject();
-        userAccessToken = jsonObject.get("access_token").getAsString();
-        advisorEngine.setUserAccessToken(userAccessToken);
-        System.out.println("response: ");
-        System.out.println(userAccessToken);
 
         return httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
     }

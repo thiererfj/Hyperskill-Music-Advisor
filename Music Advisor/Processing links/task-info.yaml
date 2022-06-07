@@ -1235,29 +1235,11 @@ feedback:
     \ character indicates the beginning of the input line.\n\n---\n\nArguments: -access\
     \ http://127.0.0.1:45678 -resource http://127.0.0.1:56789\n\nstdout:\n&gt; auth\n\
     use this link to request the access code: \nhttp://127.0.0.1:45678/authorize?client_id=f30a2058c2144488b71c0847cdc12fec&amp;redirect_uri=http://localhost:8080&amp;response_type=code\n\
-    waiting for code...\nserver error\n---fail---\nPlease, provide access for application.\n\
-    Tester: making requests to redirect uri: http://localhost:8080\nTester: Error:\
-    \ HTTP/1.1 header parser received no bytes\n&gt; categories\nPlease, provide access\
-    \ for application.\n\nstderr:\njava.net.BindException: Address already in use:\
-    \ bind\n\tat java.base/sun.nio.ch.Net.bind0(Native Method)\n\tat java.base/sun.nio.ch.Net.bind(Net.java:555)\n\
-    \tat java.base/sun.nio.ch.ServerSocketChannelImpl.netBind(ServerSocketChannelImpl.java:337)\n\
-    \tat java.base/sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:294)\n\
-    \tat java.base/sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:89)\n\
-    \tat jdk.httpserver/sun.net.httpserver.ServerImpl.bind(ServerImpl.java:134)\n\t\
-    at jdk.httpserver/sun.net.httpserver.HttpServerImpl.bind(HttpServerImpl.java:54)\n\
-    \tat advisor.Authorizer.requestAccessCode(Authorizer.java:73)\n\tat advisor.Authorizer.authorizeUser(Authorizer.java:57)\n\
-    \tat advisor.UserInterface.runProgram(UserInterface.java:41)\n\tat advisor.UserInterface.&lt;init&gt;(UserInterface.java:20)\n\
-    \tat advisor.Main.main(Main.java:7)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native\
-    \ Method)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)\n\
-    \tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\
-    \tat java.base/java.lang.reflect.Method.invoke(Method.java:568)\n\tat org.hyperskill.hstest.testing.execution.MainMethodExecutor.invokeMain(MainMethodExecutor.java:172)\n\
-    \tat org.hyperskill.hstest.testing.execution.MainMethodExecutor.lambda$launch$0(MainMethodExecutor.java:199)\n\
-    \tat java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)\n\
-    \tat java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)\n\tat\
-    \ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)\n\
-    \tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)\n\
-    \tat java.base/java.lang.Thread.run(Thread.java:833)\njava.io.IOException: HTTP/1.1\
-    \ header parser received no bytes\n\tat java.net.http/jdk.internal.net.http.HttpClientImpl.send(HttpClientImpl.java:586)\n\
+    waiting for code...\ntest start server\nTester: making requests to redirect uri:\
+    \ http://localhost:8080\nTester: Error: HTTP/1.1 header parser received no bytes\n\
+    response: \n456456\n---SUCCESS---\n&gt; categories\n---CATEGORIES---\nTop\nMood\n\
+    Pop\n\nstderr:\njava.io.IOException: HTTP/1.1 header parser received no bytes\n\
+    \tat java.net.http/jdk.internal.net.http.HttpClientImpl.send(HttpClientImpl.java:586)\n\
     \tat java.net.http/jdk.internal.net.http.HttpClientFacade.send(HttpClientFacade.java:119)\n\
     \tat Server.run(Server.java:74)\nCaused by: java.io.IOException: HTTP/1.1 header\
     \ parser received no bytes\n\tat java.net.http/jdk.internal.net.http.common.Utils.wrapWithExtraDetail(Utils.java:348)\n\
@@ -1270,10 +1252,9 @@ feedback:
     \tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)\n\
     \tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)\n\
     \tat java.base/java.lang.Thread.run(Thread.java:833)\n\tat java.base/jdk.internal.misc.InnocuousThread.run(InnocuousThread.java:162)\n\
-    Caused by: java.net.SocketException: Connection reset\n\tat java.base/sun.nio.ch.SocketChannelImpl.throwConnectionReset(SocketChannelImpl.java:394)\n\
-    \tat java.base/sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:426)\n\
-    \tat java.net.http/jdk.internal.net.http.SocketTube.readAvailable(SocketTube.java:1170)\n\
-    \tat java.net.http/jdk.internal.net.http.SocketTube$InternalReadPublisher$InternalReadSubscription.read(SocketTube.java:833)\n\
+    Caused by: java.io.EOFException: EOF reached while reading\n\tat java.net.http/jdk.internal.net.http.Http1AsyncReceiver$Http1TubeSubscriber.onComplete(Http1AsyncReceiver.java:596)\n\
+    \tat java.net.http/jdk.internal.net.http.SocketTube$InternalReadPublisher$ReadSubscription.signalCompletion(SocketTube.java:640)\n\
+    \tat java.net.http/jdk.internal.net.http.SocketTube$InternalReadPublisher$InternalReadSubscription.read(SocketTube.java:845)\n\
     \tat java.net.http/jdk.internal.net.http.SocketTube$SocketFlowTask.run(SocketTube.java:181)\n\
     \tat java.net.http/jdk.internal.net.http.common.SequentialScheduler$SchedulableTask.run(SequentialScheduler.java:230)\n\
     \tat java.net.http/jdk.internal.net.http.common.SequentialScheduler.runOrSchedule(SequentialScheduler.java:303)\n\
@@ -1284,5 +1265,5 @@ feedback:
     \tat java.net.http/jdk.internal.net.http.HttpClientImpl$SelectorManager.handleEvent(HttpClientImpl.java:979)\n\
     \tat java.net.http/jdk.internal.net.http.HttpClientImpl$SelectorManager.lambda$run$3(HttpClientImpl.java:934)\n\
     \tat java.base/java.util.ArrayList.forEach(ArrayList.java:1511)\n\tat java.net.http/jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:934)"
-  time: Tue, 07 Jun 2022 18:11:55 UTC
+  time: Tue, 07 Jun 2022 18:48:53 UTC
 record: -1

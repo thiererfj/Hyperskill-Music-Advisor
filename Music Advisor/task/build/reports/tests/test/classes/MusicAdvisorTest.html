@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.440s</div>
+<div class="counter">21.486s</div>
 <p>duration</p>
 </div>
 </td>
@@ -95,39 +95,19 @@ stdout:
 use this link to request the access code: 
 http://127.0.0.1:45678/authorize?client_id=f30a2058c2144488b71c0847cdc12fec&amp;redirect_uri=http://localhost:8080&amp;response_type=code
 waiting for code...
-server error
----fail---
-Please, provide access for application.
+test start server
 Tester: making requests to redirect uri: http://localhost:8080
 Tester: Error: HTTP/1.1 header parser received no bytes
+response: 
+456456
+---SUCCESS---
 &gt; categories
-Please, provide access for application.
+---CATEGORIES---
+Top
+Mood
+Pop
 
 stderr:
-java.net.BindException: Address already in use: bind
-	at java.base/sun.nio.ch.Net.bind0(Native Method)
-	at java.base/sun.nio.ch.Net.bind(Net.java:555)
-	at java.base/sun.nio.ch.ServerSocketChannelImpl.netBind(ServerSocketChannelImpl.java:337)
-	at java.base/sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:294)
-	at java.base/sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:89)
-	at jdk.httpserver/sun.net.httpserver.ServerImpl.bind(ServerImpl.java:134)
-	at jdk.httpserver/sun.net.httpserver.HttpServerImpl.bind(HttpServerImpl.java:54)
-	at advisor.Authorizer.requestAccessCode(Authorizer.java:73)
-	at advisor.Authorizer.authorizeUser(Authorizer.java:57)
-	at advisor.UserInterface.runProgram(UserInterface.java:41)
-	at advisor.UserInterface.&lt;init&gt;(UserInterface.java:20)
-	at advisor.Main.main(Main.java:7)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.hyperskill.hstest.testing.execution.MainMethodExecutor.invokeMain(MainMethodExecutor.java:172)
-	at org.hyperskill.hstest.testing.execution.MainMethodExecutor.lambda$launch$0(MainMethodExecutor.java:199)
-	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:833)
 java.io.IOException: HTTP/1.1 header parser received no bytes
 	at java.net.http/jdk.internal.net.http.HttpClientImpl.send(HttpClientImpl.java:586)
 	at java.net.http/jdk.internal.net.http.HttpClientFacade.send(HttpClientFacade.java:119)
@@ -144,11 +124,10 @@ Caused by: java.io.IOException: HTTP/1.1 header parser received no bytes
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
 	at java.base/java.lang.Thread.run(Thread.java:833)
 	at java.base/jdk.internal.misc.InnocuousThread.run(InnocuousThread.java:162)
-Caused by: java.net.SocketException: Connection reset
-	at java.base/sun.nio.ch.SocketChannelImpl.throwConnectionReset(SocketChannelImpl.java:394)
-	at java.base/sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:426)
-	at java.net.http/jdk.internal.net.http.SocketTube.readAvailable(SocketTube.java:1170)
-	at java.net.http/jdk.internal.net.http.SocketTube$InternalReadPublisher$InternalReadSubscription.read(SocketTube.java:833)
+Caused by: java.io.EOFException: EOF reached while reading
+	at java.net.http/jdk.internal.net.http.Http1AsyncReceiver$Http1TubeSubscriber.onComplete(Http1AsyncReceiver.java:596)
+	at java.net.http/jdk.internal.net.http.SocketTube$InternalReadPublisher$ReadSubscription.signalCompletion(SocketTube.java:640)
+	at java.net.http/jdk.internal.net.http.SocketTube$InternalReadPublisher$InternalReadSubscription.read(SocketTube.java:845)
 	at java.net.http/jdk.internal.net.http.SocketTube$SocketFlowTask.run(SocketTube.java:181)
 	at java.net.http/jdk.internal.net.http.common.SequentialScheduler$SchedulableTask.run(SequentialScheduler.java:230)
 	at java.net.http/jdk.internal.net.http.common.SequentialScheduler.runOrSchedule(SequentialScheduler.java:303)
@@ -219,7 +198,7 @@ Caused by: java.net.SocketException: Connection reset
 </thead>
 <tr>
 <td class="failures">start</td>
-<td class="failures">0.440s</td>
+<td class="failures">21.486s</td>
 <td class="failures">failed</td>
 </tr>
 </table>
@@ -234,12 +213,11 @@ use this link to request the access code:
 http://127.0.0.1:45678/authorize?client_id=f30a2058c2144488b71c0847cdc12fec&amp;redirect_uri=http://localhost:8080&amp;response_type=code
 waiting for code...
 test start server
----fail---
-Please, provide access for application.
 Tester: making requests to redirect uri: http://localhost:8080
-test print query: null
-test print query: null
 Tester: Error: HTTP/1.1 header parser received no bytes
+response: 
+456456
+---SUCCESS---
 &gt; exit
 ---GOODBYE!---
 ?[1;31m
@@ -248,13 +226,17 @@ Start test 2?[0m
 use this link to request the access code: 
 http://127.0.0.1:45678/authorize?client_id=f30a2058c2144488b71c0847cdc12fec&amp;redirect_uri=http://localhost:8080&amp;response_type=code
 waiting for code...
-server error
----fail---
-Please, provide access for application.
+test start server
 Tester: making requests to redirect uri: http://localhost:8080
 Tester: Error: HTTP/1.1 header parser received no bytes
+response: 
+456456
+---SUCCESS---
 &gt; categories
-Please, provide access for application.
+---CATEGORIES---
+Top
+Mood
+Pop
 </pre>
 </span>
 </div>
@@ -292,30 +274,6 @@ Caused by: java.io.EOFException: EOF reached while reading
 	at java.net.http/jdk.internal.net.http.HttpClientImpl$SelectorManager.lambda$run$3(HttpClientImpl.java:934)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.net.http/jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:934)
-java.net.BindException: Address already in use: bind
-	at java.base/sun.nio.ch.Net.bind0(Native Method)
-	at java.base/sun.nio.ch.Net.bind(Net.java:555)
-	at java.base/sun.nio.ch.ServerSocketChannelImpl.netBind(ServerSocketChannelImpl.java:337)
-	at java.base/sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:294)
-	at java.base/sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:89)
-	at jdk.httpserver/sun.net.httpserver.ServerImpl.bind(ServerImpl.java:134)
-	at jdk.httpserver/sun.net.httpserver.HttpServerImpl.bind(HttpServerImpl.java:54)
-	at advisor.Authorizer.requestAccessCode(Authorizer.java:73)
-	at advisor.Authorizer.authorizeUser(Authorizer.java:57)
-	at advisor.UserInterface.runProgram(UserInterface.java:41)
-	at advisor.UserInterface.&lt;init&gt;(UserInterface.java:20)
-	at advisor.Main.main(Main.java:7)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.hyperskill.hstest.testing.execution.MainMethodExecutor.invokeMain(MainMethodExecutor.java:172)
-	at org.hyperskill.hstest.testing.execution.MainMethodExecutor.lambda$launch$0(MainMethodExecutor.java:199)
-	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:833)
 java.io.IOException: HTTP/1.1 header parser received no bytes
 	at java.net.http/jdk.internal.net.http.HttpClientImpl.send(HttpClientImpl.java:586)
 	at java.net.http/jdk.internal.net.http.HttpClientFacade.send(HttpClientFacade.java:119)
@@ -332,11 +290,10 @@ Caused by: java.io.IOException: HTTP/1.1 header parser received no bytes
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
 	at java.base/java.lang.Thread.run(Thread.java:833)
 	at java.base/jdk.internal.misc.InnocuousThread.run(InnocuousThread.java:162)
-Caused by: java.net.SocketException: Connection reset
-	at java.base/sun.nio.ch.SocketChannelImpl.throwConnectionReset(SocketChannelImpl.java:394)
-	at java.base/sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:426)
-	at java.net.http/jdk.internal.net.http.SocketTube.readAvailable(SocketTube.java:1170)
-	at java.net.http/jdk.internal.net.http.SocketTube$InternalReadPublisher$InternalReadSubscription.read(SocketTube.java:833)
+Caused by: java.io.EOFException: EOF reached while reading
+	at java.net.http/jdk.internal.net.http.Http1AsyncReceiver$Http1TubeSubscriber.onComplete(Http1AsyncReceiver.java:596)
+	at java.net.http/jdk.internal.net.http.SocketTube$InternalReadPublisher$ReadSubscription.signalCompletion(SocketTube.java:640)
+	at java.net.http/jdk.internal.net.http.SocketTube$InternalReadPublisher$InternalReadSubscription.read(SocketTube.java:845)
 	at java.net.http/jdk.internal.net.http.SocketTube$SocketFlowTask.run(SocketTube.java:181)
 	at java.net.http/jdk.internal.net.http.common.SequentialScheduler$SchedulableTask.run(SequentialScheduler.java:230)
 	at java.net.http/jdk.internal.net.http.common.SequentialScheduler.runOrSchedule(SequentialScheduler.java:303)
@@ -359,7 +316,7 @@ Caused by: java.net.SocketException: Connection reset
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 7.3.3</a> at Jun 7, 2022, 11:11:54 AM</p>
+<a href="http://www.gradle.org">Gradle 7.3.3</a> at Jun 7, 2022, 11:48:53 AM</p>
 </div>
 </div>
 </body>
